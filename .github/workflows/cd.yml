@@ -1,0 +1,35 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+    tags: ["*"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      # Login to container registry (adjust for your registry)
+      - name: Login to Registry
+        run: echo $CR_PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
+        env:
+          CR_PAT: ${{ secrets.CR_PAT }}
+
+      - name: Build and push image
+        run: |
+          docker build -t ghcr.io/${{ github.repository }}:latest .
+          docker push ghcr.io/${{ github.repository }}:latest
+
+      # Assuming you have a kubeconfig secret set
+      - name: Setup Kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "latest"
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f infra/k8s/
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}

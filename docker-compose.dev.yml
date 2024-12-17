@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  ml-model:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      MODEL_WEIGHTS_PATH: "/app/src/weights/model_weights.pt"
+    volumes:
+      - ./src:/app/src
+    command: ["python", "src/app.py"]
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    volumes:
+      - ./infra/k8s/prometheus-grafana/prometheus-config:/etc/prometheus/
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
