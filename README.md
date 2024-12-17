@@ -31,7 +31,7 @@ I wrote this repository to myself as a template for deploying a custom PyTorch m
 1. **Clone the Repo**:
 
    ```bash
-   git clone https://github.com/itayinbarr/ml-deployment.git
+   git clone https://github.com/itayinbarr/ml-deploy.git
    cd ml-deployment
    ```
 

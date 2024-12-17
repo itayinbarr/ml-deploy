@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: ml-model
-          image: ghcr.io/yourusername/ml-deployment-template:latest
+          image: ghcr.io/itayinbarr/ml-deploy:latest
           ports:
             - containerPort: 5000
           readinessProbe:
