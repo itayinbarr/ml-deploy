@@ -10,6 +10,10 @@ I wrote this repository to myself as a template for deploying a custom PyTorch m
 - Monitoring using Prometheus & Grafana
 - Logging configuration
 
+#### Important Note
+
+This repository isn't working out of the box, as it is a mere template and for actual usage, specific environment variables and configurations are needed.
+
 ## Features
 
 - **Local Development**: Spin up the service locally using `docker-compose`.
